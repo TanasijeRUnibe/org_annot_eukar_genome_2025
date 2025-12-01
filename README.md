@@ -1,4 +1,6 @@
-# Eukaryotic Genome Annotation Project (2025)
+# Assembly & Annotation of Eukaryotic Genomes (2025)
+# Accession: RRS10
+# Student: Tanasije Rakic
 
 This repository contains an extensive collection of Bash and R scripts developed during the *Assembly & Annotation of Eukaryotic Genomes* course (IBU, University of Bern, 2025). The project implements a complete, end‑to‑end workflow that spans transposable element (TE) annotation, structural gene annotation, functional annotation, quality assessment, and comparative genomics. The content has been organized to make the full analysis reproducible, traceable, and logically structured for anyone revisiting the work or adapting it for future projects.
 
@@ -18,7 +20,7 @@ This directory includes all shell scripts used to automate major stages of the p
 - Preparation of BED and FASTA files for GENESPACE input
 - Execution of GENESPACE analyses, pangenome processing, and multi-genome synteny visualization
 
-Each script includes SLURM headers for cluster execution, standardized environment setup, and descriptive naming to ensure each step is clear and unambiguous.
+Each script includes SLURM headers for cluster execution.
 
 ### r_scripts_and_bashlaunchers
 This folder contains all R scripts and dedicated launcher scripts used to run analyses on the cluster. These include:
@@ -29,8 +31,6 @@ This folder contains all R scripts and dedicated launcher scripts used to run an
 - Pangenome matrix processing and summary generation
 - Riparian plot scripts for comparing multi-genome syntenic blocks
 - Bash wrappers enabling non-interactive R execution on SLURM systems
-
-All scripts are documented and follow consistent input/output patterns.
 
 ## Workflow Overview
 
@@ -68,14 +68,12 @@ All scripts are documented and follow consistent input/output patterns.
 
 ## Running on the Cluster
 
-All scripts are adapted to the IBU SLURM cluster environment and rely on Apptainer/Singularity containers for reproducibility. Key behaviors include:
+All scripts are adapted to the IBU SLURM cluster environment and rely on Apptainer/Singularity containers. Key behaviors include:
 - Standardized SLURM headers defining CPU count, memory requirements, and walltime limits
 - Automatic generation of log files stored under `logs/` for output and error tracking
 - Reproducible execution using `apptainer exec --bind $WORKDIR container.sif` commands
 - Meaningful directory structures that separate `data`, `results`, `logs`, and `scripts` for clarity
 - Consistent handling of paths and environment variables to avoid conflicts or unexpected behavior
-
-The cluster-oriented workflow ensures scalability and minimizes configuration overhead for each analysis.
 
 ## Requirements
 
@@ -90,19 +88,4 @@ All major tools required for the pipeline are provided via course containers, in
 - GENESPACE for orthology, synteny, and pangenome analysis
 - R with tidyverse, circlize, and GENESPACE dependencies for downstream visualization and processing
 
-No manual installation is required when using the course infrastructure.
-
-## Purpose
-
-This repository serves as:
-- A complete end-to-end genome annotation pipeline from raw assembly to pangenome analysis
-- A structured, chronological record of all computational steps performed during the practical course
-- A standardized script collection designed for reuse in future research projects
-- A reproducible foundation for additional comparative or functional genomics analyses
-- A reference implementation for students or researchers learning genome annotation workflows
-
-By providing a clear organization and well-documented steps, this repository aims to make complex genomic analyses more accessible and reproducible.
-
-## Credits
-
-Created for the *Assembly & Annotation of Eukaryotic Genomes* course (2025).
+## This repository serves as a structured, chronological record of all computational steps performed during the practical course.
