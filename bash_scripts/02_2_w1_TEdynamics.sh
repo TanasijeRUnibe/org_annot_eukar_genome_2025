@@ -14,8 +14,8 @@ EDTA_ANNO=/data/users/trakic/assembly_annotation_course/annotation/EDTA/asm.bp.p
 WORKDIR=/data/users/trakic/assembly_annotation_course/annotation/TE_dynamics
 REPEATMASKER_OUT=/data/users/trakic/assembly_annotation_course/annotation/EDTA/asm.bp.p_ctg.fa.mod.EDTA.anno/asm.bp.p_ctg.fa.mod.out
 
-PARSER=/data/users/trakic/assembly_annotation_course/scripts_annotation/w1_5_parseRM.pl
-RSCRIPT=/data/users/trakic/assembly_annotation_course/scripts_annotation/w1_6_plot_div.R
+PARSER=/data/users/trakic/assembly_annotation_course/scripts_annotation/w1_3_parseRM.pl
+RSCRIPT=/data/users/trakic/assembly_annotation_course/scripts_annotation/w1_4_plot_div.R
 
 mkdir -p $WORKDIR/logs
 cd $WORKDIR
