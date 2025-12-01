@@ -1,142 +1,107 @@
 # Eukaryotic Genome Annotation Project (2025)
 
-This repository contains all Bash and R scripts used for the *Assembly & Annotation of Eukaryotic Genomes* course (IBU, University of Bern, 2025). The project implements the full workflow from transposable element (TE) annotation to gene annotation, quality assessment, comparative genomics, and pangenome analysis.
+This repository contains an extensive collection of Bash and R scripts developed during the *Assembly & Annotation of Eukaryotic Genomes* course (IBU, University of Bern, 2025). The project implements a complete, end‑to‑end workflow that spans transposable element (TE) annotation, structural gene annotation, functional annotation, quality assessment, and comparative genomics. The content has been organized to make the full analysis reproducible, traceable, and logically structured for anyone revisiting the work or adapting it for future projects.
 
-All scripts are organized by week and step, following the course practical layout.
+The workflow is divided by week, reflecting the chronological order in which tasks were introduced in the course. Each step includes its own script, supporting files, and standardized naming conventions that ensure clarity and maintainability. The goal of this repository is not just to store scripts, but to document a functional and well‑structured analysis pipeline for eukaryotic genome annotation.
 
 ## Repository Structure
 
 ### bash_scripts
-Contains workflow steps for:
+This directory includes all shell scripts used to automate major stages of the pipeline. The contents are organized in a week‑based sequence and cover tasks such as:
+- EDTA execution for full TE annotation, including intact and fragmented elements
+- TEsorter classification of LTR retrotransposons into clades and families
+- Extraction of full-length LTRs, tools for identity comparison, and TE dynamics visualization
+- Complete MAKER-based gene annotation pipeline (input preparation, merging, functional annotation, filtering)
+- InterProScan integration for functional domain mapping
+- Generation and filtering of Annotation Edit Distance (AED) statistics
+- BUSCO analysis for annotation completeness metrics
+- Preparation of BED and FASTA files for GENESPACE input
+- Execution of GENESPACE analyses, pangenome processing, and multi-genome synteny visualization
 
-EDTA, TEsorter, LTR identity, TE dynamics
-
-MAKER gene annotation pipeline
-
-InterProScan integration
-
-AED calculation and GFF/FASTA filtering
-
-BUSCO completeness assessment
-
-BED/FASTA preparation for GENESPACE
-
-GENESPACE execution, pangenome and riparian plots
+Each script includes SLURM headers for cluster execution, standardized environment setup, and descriptive naming to ensure each step is clear and unambiguous.
 
 ### r_scripts_and_bashlaunchers
-Contains:
+This folder contains all R scripts and dedicated launcher scripts used to run analyses on the cluster. These include:
+- Scripts for computing LTR identity, identifying recent vs. ancient insertions, and comparing TE dynamics
+- Scripts for circos- and circlize-based TE distribution visualization along scaffolds
+- R pipelines for RepeatMasker divergence analysis and landscape plotting
+- GENESPACE R workflow scripts for orthogroup discovery and synteny inference
+- Pangenome matrix processing and summary generation
+- Riparian plot scripts for comparing multi-genome syntenic blocks
+- Bash wrappers enabling non-interactive R execution on SLURM systems
 
-R scripts for LTR identity, TE distribution, TE dynamics
-
-R scripts for GENESPACE and pangenome processing
-
-Riparian plot scripts
-
-Bash launchers for cluster execution of R steps
+All scripts are documented and follow consistent input/output patterns.
 
 ## Workflow Overview
 
 ### Week 1–2: Transposable Element Annotation
-
-Run EDTA for genome-wide TE annotation
-
-Classify LTR retrotransposons using TEsorter
-
-Extract full-length LTRs and compute percent identity
-
-Generate TE dynamics plots and RepeatMasker divergence landscapes
-
-Visualize TE distribution across scaffolds using circlize
-
-Produce TE superfamily and clade-level summaries
+- Run EDTA to generate initial TE annotations, including TE libraries, GFF3 files, and RepeatMasker outputs
+- Extract Copia and Gypsy sequences, classify them using TEsorter, and generate clade-level TE summaries
+- Identify full-length LTR retrotransposons and compute percent identity to estimate insertion age
+- Generate TE dynamics plots to characterize recent vs. older insertion events
+- Use RepeatMasker outputs to reconstruct TE divergence landscapes using specialized parsing scripts
+- Visualize TE density and superfamily distribution using circlize-based circular genome representations
+- Produce summary tables comparing TE abundance, distribution patterns, and clade-specific dynamics
 
 ### Week 3: Gene Annotation with MAKER
-
-Merge MAKER GFF and FASTA outputs
-
-Assign consistent IDs to genes and transcripts
-
-Annotate proteins using InterProScan
-
-Calculate Annotation Edit Distance (AED)
-
-Filter low-quality annotations
-
-Extract high-confidence mRNA, CDS, and protein sequences
-
-Generate final cleaned annotation sets
+- Merge MAKER GFF and FASTA outputs into unified annotation files
+- Assign consistent gene and transcript identifiers using maker_map_ids and associated tools
+- Annotate protein sequences using InterProScan, including Pfam domains, GO terms, and IPR signatures
+- Compute annotation confidence using AED and integrate AED metrics into the GFF files
+- Apply quality filters to remove unsupported, incomplete, or low-confidence predictions
+- Extract high-quality mRNA, CDS, and protein sequences for downstream analyses
+- Generate final cleaned and functionally annotated gene sets suitable for comparative genomics
 
 ### Week 4: Isoforms and Quality Assessment
-
-Extract longest protein and transcript isoforms per gene
-
-Run BUSCO to evaluate annotation completeness
-
-Generate annotation statistics with AGAT
+- Identify longest protein and transcript isoforms per gene to standardize annotation for BUSCO and GENESPACE
+- Run BUSCO on proteins or transcripts to assess completeness of the dataset and benchmark annotation quality
+- Produce detailed annotation statistics via AGAT, including feature counts, gene model length distributions, and CDS/UTR summaries
+- Compare annotation quality across accessions or iterations and verify consistency with expected reference benchmarks
 
 ### Week 4–5: Comparative Genomics (GENESPACE)
-
-Prepare BED and peptide FASTA files for orthogroup inference
-
-Run DIAMOND BLAST and GENESPACE
-
-Generate syntenic dotplots and synteny-hit maps
-
-Process pangenome matrix
-
-Identify core, accessory, and unique gene sets
-
-Produce riparian plots for multi-species synteny visualization
+- Prepare BED and FASTA files compatible with GENESPACE requirements, ensuring correct ordering and ID consistency
+- Run DIAMOND BLAST and OrthoFinder-based orthogroup inference through GENESPACE containers
+- Produce syntenic dotplots and anchor-hit summaries to assess structural alignment between genomes
+- Process the pangenome matrix to identify core, accessory, and unique orthogroups and gene sets
+- Generate riparian plots to visualize multi-genome synteny at a structural and chromosomal level
+- Summarize comparative genomics results, identifying major differences, conserved blocks, rearrangements, and unique features
 
 ## Running on the Cluster
 
-All scripts are written for the IBU SLURM cluster and use Apptainer/Singularity containers.
+All scripts are adapted to the IBU SLURM cluster environment and rely on Apptainer/Singularity containers for reproducibility. Key behaviors include:
+- Standardized SLURM headers defining CPU count, memory requirements, and walltime limits
+- Automatic generation of log files stored under `logs/` for output and error tracking
+- Reproducible execution using `apptainer exec --bind $WORKDIR container.sif` commands
+- Meaningful directory structures that separate `data`, `results`, `logs`, and `scripts` for clarity
+- Consistent handling of paths and environment variables to avoid conflicts or unexpected behavior
 
-Typical features include:
-
-SLURM headers for CPU, RAM, and time
-
-Logging to logs/
-
-Execution via apptainer exec --bind $WORKDIR container.sif
-
-Reproducible directory structure
+The cluster-oriented workflow ensures scalability and minimizes configuration overhead for each analysis.
 
 ## Requirements
 
-All tools are provided through the course containers, including:
+All major tools required for the pipeline are provided via course containers, including:
+- EDTA for TE library construction and TE annotation
+- TEsorter for LTR classification
+- RepeatMasker for divergence and TE landscape analysis
+- MAKER for structural gene prediction
+- InterProScan for functional annotation of proteins
+- AGAT for GFF/GTF manipulation and annotation statistics
+- BUSCO for benchmarking annotation completeness
+- GENESPACE for orthology, synteny, and pangenome analysis
+- R with tidyverse, circlize, and GENESPACE dependencies for downstream visualization and processing
 
-EDTA
-
-TEsorter
-
-RepeatMasker
-
-MAKER
-
-InterProScan
-
-AGAT
-
-BUSCO
-
-GENESPACE
-
-R (tidyverse, circlize, GENESPACE dependencies)
+No manual installation is required when using the course infrastructure.
 
 ## Purpose
 
 This repository serves as:
+- A complete end-to-end genome annotation pipeline from raw assembly to pangenome analysis
+- A structured, chronological record of all computational steps performed during the practical course
+- A standardized script collection designed for reuse in future research projects
+- A reproducible foundation for additional comparative or functional genomics analyses
+- A reference implementation for students or researchers learning genome annotation workflows
 
-A complete end-to-end genome annotation pipeline
-
-A record of all steps performed during the course
-
-A standardized and organized script collection
-
-A reproducible resource for similar genomic analyses
-
-A reference for future benchmarking and comparative genomics projects
+By providing a clear organization and well-documented steps, this repository aims to make complex genomic analyses more accessible and reproducible.
 
 ## Credits
 
