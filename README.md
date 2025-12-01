@@ -2,9 +2,9 @@
 ### Accession: RRS10
 ### Student: Tanasije Rakic
 
-This repository contains an extensive collection of Bash and R scripts developed during the *Assembly & Annotation of Eukaryotic Genomes* course (IBU, University of Bern, 2025). The project implements a complete, end‑to‑end workflow that spans transposable element (TE) annotation, structural gene annotation, functional annotation, quality assessment, and comparative genomics. The content has been organized to make the full analysis reproducible, traceable, and logically structured for anyone revisiting the work or adapting it for future projects.
+This repository contains an extensive collection of Bash and R scripts developed during the *Assembly & Annotation of Eukaryotic Genomes* course (IBU, University of Bern, 2025). The project implements a complete, end‑to‑end workflow that spans transposable element (TE) annotation, structural gene annotation, functional annotation, quality assessment, and comparative genomics.
 
-The workflow is divided by week, reflecting the chronological order in which tasks were introduced in the course. Each step includes its own script, supporting files, and standardized naming conventions that ensure clarity and maintainability. The goal of this repository is not just to store scripts, but to document a functional and well‑structured analysis pipeline for eukaryotic genome annotation.
+The workflow is divided by week, reflecting the chronological order in which tasks were introduced in the course. Each step includes its own script, supporting files.
 
 ## Repository Structure
 
